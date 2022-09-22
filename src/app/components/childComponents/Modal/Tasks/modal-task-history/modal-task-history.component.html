@@ -1,0 +1,96 @@
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-12">
+            <h4 class="h4-title">
+                <a
+                    [href]="data.task.link ? data.task.link : 'tel:task.phone'"
+                    [target]=" data.task.link ? '_blank' : ''"
+                >{{data.task.link ? data.task.link : data.task.phone}}
+                </a>
+            </h4>
+            <p>Дата создания: {{data.task.created_at}}</p>
+            <div class="flex-block content-between">
+                <div>
+                    <span class="task__source-icon"></span>
+                    <span class="task__source-title"><strong>Источник:</strong> {{data.task.source.title}}</span>
+                </div>
+                <div
+                    class="task__unit-title"
+                ><strong>Подразделение:</strong> {{ data.task.unit.title }}
+                </div>
+            </div>
+
+            <div class="flex-block content-between">
+                <p><strong>Статус:</strong> {{data.task.status.title}}</p>
+                <p><strong>Автор:</strong> {{data.task.author}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="col-12">
+                
+                <div class="row">
+
+                    <div class="col-6">
+                        <mat-form-field appearance="fill" class="select-wrap">
+                            <mat-label>Статус</mat-label>
+                            <mat-select formControlName="status_id">
+                              <mat-option *ngFor="let status of statuses" [value]="status.id">
+                                {{status.title}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="fill" class="select-wrap">
+                            <mat-label>Ответственный</mat-label>
+                            <mat-select formControlName="responsible_id">
+                                <mat-option *ngFor="let user of users" [value]="user.id">
+                                {{user.firstname}}
+                                </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                    </div>
+
+                </div>
+    
+    
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="textarea-full-width">
+                            <mat-label>Комментарий</mat-label>
+                            <textarea matInput placeholder="" formControlName="text"></textarea>
+                          </mat-form-field>
+                    </div>
+                </div>
+    
+                <div class="login_submit_button">
+                    <button type="submit" [disabled]="form.invalid" mat-button color="primary">Submit<i class="material-icons right">send</i></button>
+                </div>
+            
+        </form>
+    </div>
+
+    <div class="row">
+        <mat-tab-group class="">
+            <mat-tab label="Comments">
+                <div class="col-12">
+                    <div *ngFor="let cComment of taskComments | eventTask:0" >
+                        <p>{{cComment.created_at_r}}</p>
+                        <p >{{cComment.text}}</p>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Events"> 
+                <div  class="col-12">
+                    <div *ngFor="let cComment of taskComments | eventTask:1" >
+                        <p>{{cComment.created_at_r}}</p>
+                        <p >{{cComment.text}}</p>
+                    </div>
+                </div> 
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</div>

@@ -1,0 +1,107 @@
+<div class="dashboard-content">
+    <div class="container">
+        <div>
+            <button mat-button color="primary" (click)="openSourceModal()">Новая задача</button>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-4">
+            <h4 class="center tasks-title">Новые задачи</h4>
+            <mat-card
+                *ngFor="let task of nTasks; let i = index"
+                [ngClass]="{'card' : true, 'card-lead' : true, 'darken-1' : true, 'white-text' : true, 'blue-grey' : true}"
+                (click)="openHistory($event, task, i, nTasks)"
+            >
+                <mat-card-content class="white-text">
+                    <p class="card-content__comments">
+                        <span class="clip">{{task.lastComment}}</span>
+                    </p>
+                    <a class="task-link white-text lighten-3"
+                        [href]="task.link ? task.link : 'tel:task.phone'"
+                        [target]=" task.link ? '_blanck' : ''">
+                        {{ task.link ? task.link : task.phone }}
+                    </a>
+                    <div class="flex-block content-between items-center">
+                        <div class="task__source">
+                            <span class="task__source-icon">
+                                <svg fill="#fff" width="20px" height="20px" class="" style="border-color: rgb(255, 255, 255);">
+                                    <use [attr.xlink:href]="'#unit-icon-'+ task.unit.id"></use>
+                                </svg>
+                            </span>
+                            &nbsp;
+                            <span class="task__source-title">{{ task.source.title }}</span>
+                        </div>
+                        <div class="task__unit-title  unit__color">{{ task.unit.title }}</div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        
+        <div class="col-4">
+            <h4 class="center tasks-title">Задачи в работе</h4>
+            <mat-card
+                *ngFor="let task of pTasks; let i = index"
+                [ngClass]="{'card' : true, 'card-task' : true, 'lighten-1' : true, 'white-text' : true}"
+                (click)="openHistory($event, task, i, pTasks)"
+            >
+                <mat-card-content class="white-text">
+                    <p class="card-content__comments">
+                        <span class="clip">{{task.lastComment}}</span>
+                    </p>
+                    <a class="task-link white-text lighten-3" [href]="task.link ? task.link : 'tel:task.phone'"
+                        [target]=" task.link ? '_blanck' : ''">
+                        {{ task.link ? task.link : task.phone }}
+                    </a>
+                    <div class="flex-block content-between items-center">
+                        <div class="task__source">
+                            <span class="task__source-icon">
+                                <svg fill="#fff" width="20px" height="20px" class=""
+                                    style="border-color: rgb(255, 255, 255);">
+                                    <use [attr.xlink:href]="'#unit-icon-'+task.unit.id"></use>
+                                </svg>
+                            </span>
+                            &nbsp;
+                            <span class="task__source-title">{{ task.source.title }}</span>
+                        </div>
+                        <div class="task__unit-title  unit__color">{{ task.unit.title }}</div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="col-4">
+            <h4 class="center tasks-title">Выполненные</h4>
+            <mat-card
+                *ngFor="let task of dTasks; let i = index"
+                [ngClass]="{'card' : true, 'card-task' : true, 'lighten-1' : true, 'white-text' : true, 'green': true}"
+                (click)="openHistory($event, task, i, dTasks)"
+            >
+                <mat-card-content class="white-text">
+                    <p class="card-content__comments">
+                        <span class="clip">{{task.lastComment}}</span>
+                    </p>
+                    <a class="task-link white-text lighten-3" [href]="task.link ? task.link : 'tel:task.phone'"
+                        [target]=" task.link ? '_blanck' : ''">
+                        {{ task.link ? task.link : task.phone }}
+                    </a>
+                    <div class="flex-block content-between items-center">
+                        <div class="task__source">
+                            <span class="task__source-icon">
+                                <svg fill="#fff" width="20px" height="20px" class=""
+                                    style="border-color: rgb(255, 255, 255);">
+                                    <use [attr.xlink:href]="'#unit-icon-'+task.unit.id"></use>
+                                </svg>
+                            </span>
+                            &nbsp;
+                            <span class="task__source-title">{{ task.source.title }}</span>
+                        </div>
+                        <div class="task__unit-title  unit__color">{{ task.unit.title }}</div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+    </div>
+</div>

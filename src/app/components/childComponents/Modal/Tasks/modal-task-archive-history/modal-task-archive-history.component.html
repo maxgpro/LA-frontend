@@ -1,0 +1,54 @@
+<h1 mat-dialog-title></h1>
+<div mat-dialog-content>
+    
+    <div class="row">
+        <div class="col-12">
+            <h4 class="h4-title">
+                <a
+                    [href]="data.task.link ? data.task.link : 'tel:task.phone'"
+                    [target]=" data.task.link ? '_blank' : ''"
+                >{{data.task.link ? data.task.link : data.task.phone}}
+                </a>
+            </h4>
+            <p>Дата создания: {{data.task.created_at}}</p>
+            <div class="flex-block content-between">
+                <div>
+                    <span class="task__source-icon"></span>
+                    <span class="task__source-title"><strong>Источник:</strong> {{data.task.source.title}}</span>
+                </div>
+                <div
+                    class="task__unit-title"
+                ><strong>Подразделение:</strong> {{ data.task.unit.title }}
+                </div>
+            </div>
+            <div class="flex-block content-between">
+                <p><strong>Статус:</strong> {{data.task.status.title}}</p>
+                <p><strong>Автор:</strong> {{data.task.author}}</p>
+                <p><strong>Ответственный:</strong> {{data.task.responsible}}</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="row">
+
+        <mat-tab-group class="">
+            <mat-tab label="Comments">
+                <div class="col-12">
+                    <div *ngFor="let cComment of taskComments | eventTask:0" >
+                        <p>{{cComment.created_at_r}}</p>
+                        <p [innerHTML]="cComment.text"></p>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Events"> 
+                <div  class="col-12">
+                    <div *ngFor="let cComment of taskComments | eventTask:1" >
+                        <p>{{cComment.created_at_r}}</p>
+                        <p [innerHTML]="cComment.text"></p>
+                    </div>
+                </div> 
+            </mat-tab> 
+        </mat-tab-group>
+    </div>
+</div>
